@@ -1,6 +1,6 @@
 /**
    ArduinoNa
-   Test joy receiver
+   PS2 wireless joy receiver
 */
 
 #include <PS2X_lib.h>  //for v1.6

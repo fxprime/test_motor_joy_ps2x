@@ -61,12 +61,16 @@ void motor_init() {
  */
 void motor_cmd(float leftspd, float rightspd) {
 
-    //Check direction from spd >0 forward, <0 backward, 0 stop
+    //ตรวจสอบความเร็วว่าสั่งการ spd >0 ล้อไปหน้า, <0 ล้อถอยหลัง, 0 หยุด
     digitalWrite( MLftDirAPin, (MLftRev ? sign(leftspd)>0 : sign(leftspd)<0) );
     digitalWrite( MLftDirBPin, (MLftRev ? sign(leftspd)<0 : sign(leftspd)>0) );
     digitalWrite( MRgtDirAPin, (MRgtRev ? sign(rightspd)>0 : sign(rightspd)<0) );
     digitalWrite( MRgtDirBPin, (MRgtRev ? sign(rightspd)<0 : sign(rightspd)>0) );
 
+
+    /**
+     * ลิมิต 
+     */
     float Lout = constrain( fabs(leftspd*1000), 0, 1000)/1000.0;
     float Rout = constrain( fabs(rightspd*1000), 0, 1000)/1000.0;
 
@@ -80,21 +84,18 @@ void motor_cmd(float leftspd, float rightspd) {
      *            deadband
      */
 
-    Lout = 255.0*applyDeadband(Lout, DEADBAND_PWM);
-    Rout = 255.0*applyDeadband(Rout, DEADBAND_PWM);
+    Lout = applyDeadband(Lout, DEADBAND_PWM);
+    Rout = applyDeadband(Rout, DEADBAND_PWM);
 
     
     if(Lout>0) {
-      Lout = mapf(Lout, 0, 255.0-DEADBAND_PWM, MIN_PWM_SPD, MAX_PWM_SPD);
+      Lout = mapf(Lout, 0, 1.0, MIN_PWM_SPD, MAX_PWM_SPD);
     }
     if(Rout>0) {
-      Rout = mapf(Rout, 0, 255.0-DEADBAND_PWM, MIN_PWM_SPD, MAX_PWM_SPD);
+      Rout = mapf(Rout, 0, 1.0, MIN_PWM_SPD, MAX_PWM_SPD);
     }
 
-    Serial.print(leftspd);Serial.print(",");
-    Serial.print(rightspd);Serial.print(",");
-    Serial.print(Lout);Serial.print(",");
-    Serial.print(Rout);Serial.print("\n");
+
 
     analogWrite(MLftSpdPin, Lout);
     analogWrite(MRgtSpdPin, Rout);
