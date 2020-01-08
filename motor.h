@@ -69,7 +69,7 @@ void motor_cmd(float leftspd, float rightspd) {
 
 
     /**
-     * ลิมิต 
+     * ทำความเร็วให้เป็น + ด้วยคำสั่ง function absolute  (fabs) จากนั้นลิมิตค่าให้ไม่เกิน
      */
     float Lout = constrain( fabs(leftspd*1000), 0, 1000)/1000.0;
     float Rout = constrain( fabs(rightspd*1000), 0, 1000)/1000.0;

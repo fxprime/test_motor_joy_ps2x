@@ -2,7 +2,8 @@
    ArduinoNa
    Test motor speed control using joy
    Vector wheel control
-   วิธีการต่อ สามารถดูได้จากบทความ
+   วิธีการต่อ สามารถดูได้จากบทความ 
+   www.arduinona.com/article/15/โปรเจค-ใช้-ps2-joy-wireless-เพื่อบังคับรถหรือหุ่นยนต์
 */
 
 #include "motor.h"
